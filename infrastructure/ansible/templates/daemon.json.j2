@@ -1,0 +1,37 @@
+{
+  "data-root": "/var/lib/docker",
+  "storage-driver": "overlay2",
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "3"
+  },
+  "dns": ["8.8.8.8", "8.8.4.4"],
+  "default-address-pools": [
+    {
+      "base": "172.17.0.0/12",
+      "size": 24
+    }
+  ],
+  "live-restore": true,
+  "userland-proxy": false,
+  "iptables": true,
+  "ip-forward": true,
+  "icc": false,
+  "no-new-privileges": true,
+  "seccomp-profile": "/etc/docker/seccomp-default.json",
+  "default-ulimits": {
+    "nofile": {
+      "Name": "nofile",
+      "Hard": 65536,
+      "Soft": 65536
+    },
+    "nproc": {
+      "Name": "nproc",
+      "Hard": 4096,
+      "Soft": 4096
+    }
+  },
+  "metrics-addr": "0.0.0.0:9323",
+  "experimental": true
+}

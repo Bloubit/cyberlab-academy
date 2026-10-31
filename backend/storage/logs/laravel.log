@@ -1,0 +1,508 @@
+[2026-07-27 08:47:46] local.ERROR: SQLSTATE[23503]: Foreign key violation: 7 ERROR:  insert or update on table "user_roles" violates foreign key constraint "user_roles_role_id_foreign"
+DETAIL:  Key (role_id)=(1) is not present in table "roles". (Connection: pgsql, Host: postgres, Port: 5432, Database: cyberlab, SQL: insert into "user_roles" ("user_id", "role_id") values (54, 1)) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 23503): SQLSTATE[23503]: Foreign key violation: 7 ERROR:  insert or update on table \"user_roles\" violates foreign key constraint \"user_roles_role_id_foreign\"
+DETAIL:  Key (role_id)=(1) is not present in table \"roles\". (Connection: pgsql, Host: postgres, Port: 5432, Database: cyberlab, SQL: insert into \"user_roles\" (\"user_id\", \"role_id\") values (54, 1)) at /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php:838)
+[stacktrace]
+#0 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate\\Database\\Connection->runQueryCallback('insert into \"us...', Array, Object(Closure))
+#1 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(573): Illuminate\\Database\\Connection->run('insert into \"us...', Array, Object(Closure))
+#2 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(537): Illuminate\\Database\\Connection->statement('insert into \"us...', Array)
+#3 /var/www/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4121): Illuminate\\Database\\Connection->insert('insert into \"us...', Array)
+#4 /var/www/database/seeders/UserSeeder.php(25): Illuminate\\Database\\Query\\Builder->insert(Array)
+#5 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Database\\Seeders\\UserSeeder->run()
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#7 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#8 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#9 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#10 /var/www/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(184): Illuminate\\Container\\Container->call(Array, Array)
+#11 /var/www/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(193): Illuminate\\Database\\Seeder->Illuminate\\Database\\{closure}()
+#12 /var/www/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(59): Illuminate\\Database\\Seeder->__invoke(Array)
+#13 /var/www/database/seeders/DatabaseSeeder.php(11): Illuminate\\Database\\Seeder->call('Database\\\\Seeder...')
+#14 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Database\\Seeders\\DatabaseSeeder->run()
+#15 /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#16 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#17 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#18 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#19 /var/www/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(184): Illuminate\\Container\\Container->call(Array, Array)
+#20 /var/www/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(193): Illuminate\\Database\\Seeder->Illuminate\\Database\\{closure}()
+#21 /var/www/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(71): Illuminate\\Database\\Seeder->__invoke()
+#22 /var/www/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php(157): Illuminate\\Database\\Console\\Seeds\\SeedCommand->Illuminate\\Database\\Console\\Seeds\\{closure}()
+#23 /var/www/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(70): Illuminate\\Database\\Eloquent\\Model::unguarded(Object(Closure))
+#24 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\\Database\\Console\\Seeds\\SeedCommand->handle()
+#25 /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#26 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#27 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#28 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#29 /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php(211): Illuminate\\Container\\Container->call(Array)
+#30 /var/www/vendor/symfony/console/Command/Command.php(341): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#31 /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#32 /var/www/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#33 /var/www/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\Seeds\\SeedCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#34 /var/www/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#35 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#36 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#37 /var/www/artisan(9): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#38 {main}
+
+[previous exception] [object] (PDOException(code: 23503): SQLSTATE[23503]: Foreign key violation: 7 ERROR:  insert or update on table \"user_roles\" violates foreign key constraint \"user_roles_role_id_foreign\"
+DETAIL:  Key (role_id)=(1) is not present in table \"roles\". at /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php:584)
+[stacktrace]
+#0 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(584): PDOStatement->execute()
+#1 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(827): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}('insert into \"us...', Array)
+#2 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate\\Database\\Connection->runQueryCallback('insert into \"us...', Array, Object(Closure))
+#3 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(573): Illuminate\\Database\\Connection->run('insert into \"us...', Array, Object(Closure))
+#4 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(537): Illuminate\\Database\\Connection->statement('insert into \"us...', Array)
+#5 /var/www/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4121): Illuminate\\Database\\Connection->insert('insert into \"us...', Array)
+#6 /var/www/database/seeders/UserSeeder.php(25): Illuminate\\Database\\Query\\Builder->insert(Array)
+#7 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Database\\Seeders\\UserSeeder->run()
+#8 /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#9 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#10 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#11 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#12 /var/www/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(184): Illuminate\\Container\\Container->call(Array, Array)
+#13 /var/www/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(193): Illuminate\\Database\\Seeder->Illuminate\\Database\\{closure}()
+#14 /var/www/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(59): Illuminate\\Database\\Seeder->__invoke(Array)
+#15 /var/www/database/seeders/DatabaseSeeder.php(11): Illuminate\\Database\\Seeder->call('Database\\\\Seeder...')
+#16 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Database\\Seeders\\DatabaseSeeder->run()
+#17 /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#18 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#19 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#20 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#21 /var/www/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(184): Illuminate\\Container\\Container->call(Array, Array)
+#22 /var/www/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(193): Illuminate\\Database\\Seeder->Illuminate\\Database\\{closure}()
+#23 /var/www/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(71): Illuminate\\Database\\Seeder->__invoke()
+#24 /var/www/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php(157): Illuminate\\Database\\Console\\Seeds\\SeedCommand->Illuminate\\Database\\Console\\Seeds\\{closure}()
+#25 /var/www/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(70): Illuminate\\Database\\Eloquent\\Model::unguarded(Object(Closure))
+#26 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\\Database\\Console\\Seeds\\SeedCommand->handle()
+#27 /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#28 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#29 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#30 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#31 /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php(211): Illuminate\\Container\\Container->call(Array)
+#32 /var/www/vendor/symfony/console/Command/Command.php(341): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#33 /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#34 /var/www/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#35 /var/www/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\Seeds\\SeedCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#36 /var/www/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#37 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#38 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#39 /var/www/artisan(9): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#40 {main}
+"} 
+[2026-07-27 10:03:12] local.ERROR: Command "config:get" is not defined.
+
+Did you mean one of these?
+    cache:forget
+    config:cache
+    config:clear
+    config:make
+    config:publish
+    config:show
+    queue:forget {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"config:get\" is not defined.
+
+Did you mean one of these?
+    cache:forget
+    config:cache
+    config:clear
+    config:make
+    config:publish
+    config:show
+    queue:forget at /var/www/vendor/symfony/console/Application.php:759)
+[stacktrace]
+#0 /var/www/vendor/symfony/console/Application.php(298): Symfony\\Component\\Console\\Application->find('config:get')
+#1 /var/www/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#2 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#3 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#4 /var/www/artisan(9): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#5 {main}
+"} 
+[2026-07-27 11:17:38] local.DEBUG: From: CyberLab-Academy <hello@cyberlab.com>
+To: lazizbekborotov99@gmail.com
+Subject: Verify Your Email - CyberLab Academy
+MIME-Version: 1.0
+Date: Mon, 27 Jul 2026 11:17:38 +0000
+Message-ID: <0347c80deea219e0e3fed20f230428df@cyberlab.com>
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Email</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0f0f23;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #e2e8f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        .header h1 {
+            color: #00d4ff;
+            font-size: 28px;
+            margin: 0;
+        }
+        .header .shield {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .content {
+            padding: 30px 0;
+            line-height: 1.6;
+        }
+        .content h2 {
+            color: #ffffff;
+            font-size: 22px;
+            margin-top: 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(90deg, #00d4ff, #9945ff);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+        .btn:hover {
+            background: linear-gradient(90deg, #00b8e6, #8833ff);
+        }
+        .notice {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+            font-size: 13px;
+            color: #a0aec0;
+        }
+        .footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: #718096;
+        }
+        .footer a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="shield">🛡️</div>
+            <h1>CyberLab Academy</h1>
+        </div>
+
+        <div class="content">
+            <h2>Verify Your Email Address</h2>
+
+            <p>Hi Lazizbek Borotov,</p>
+
+            <p>Thank you for creating an account at CyberLab Academy! To get started with your cybersecurity journey, please verify your email address by clicking the button below:</p>
+
+            <p style="text-align: center;">
+                <a href="http://localhost:8000/verify-email?token=qFR9IKxVDlzOR92gW4l3n9nhYDdKabFJ9zUvLC1J5gJm5zH29z6tUjJZAZsJ" class="btn">Verify Email Address</a>
+            </p>
+
+            <p>This link will expire in 24 hours.</p>
+
+            <div class="notice">
+                If you did not create an account, no further action is required. Please ignore this email.
+            </div>
+
+            <p>If the button above doesn't work, copy and paste this URL into your browser:</p>
+            <p style="word-break: break-all; font-size: 12px; color: #00d4ff;">http://localhost:8000/verify-email?token=qFR9IKxVDlzOR92gW4l3n9nhYDdKabFJ9zUvLC1J5gJm5zH29z6tUjJZAZsJ</p>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2026 CyberLab Academy. All rights reserved.</p>
+            <p>
+                <a href="http://localhost:8000">Visit our website</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+  
+[2026-07-27 11:17:38] local.DEBUG: From: CyberLab-Academy <hello@cyberlab.com>
+To: lazizbekborotov99@gmail.com
+Subject: Verify Your Email - CyberLab Academy
+MIME-Version: 1.0
+Date: Mon, 27 Jul 2026 11:17:38 +0000
+Message-ID: <a3aee04ddcfbfd3ce8e13fbeba306960@cyberlab.com>
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Email</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0f0f23;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #e2e8f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        .header h1 {
+            color: #00d4ff;
+            font-size: 28px;
+            margin: 0;
+        }
+        .header .shield {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .content {
+            padding: 30px 0;
+            line-height: 1.6;
+        }
+        .content h2 {
+            color: #ffffff;
+            font-size: 22px;
+            margin-top: 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(90deg, #00d4ff, #9945ff);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+        .btn:hover {
+            background: linear-gradient(90deg, #00b8e6, #8833ff);
+        }
+        .notice {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+            font-size: 13px;
+            color: #a0aec0;
+        }
+        .footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 12px;
+            color: #718096;
+        }
+        .footer a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="shield">🛡️</div>
+            <h1>CyberLab Academy</h1>
+        </div>
+
+        <div class="content">
+            <h2>Verify Your Email Address</h2>
+
+            <p>Hi Lazizbek Borotov,</p>
+
+            <p>Thank you for creating an account at CyberLab Academy! To get started with your cybersecurity journey, please verify your email address by clicking the button below:</p>
+
+            <p style="text-align: center;">
+                <a href="http://localhost:8000/verify-email?token=Z4iIm2r0EkopuPbI8kGu1irEGiXJWFN259BythdjsR0xeiJnbXjNVJfoDklg" class="btn">Verify Email Address</a>
+            </p>
+
+            <p>This link will expire in 24 hours.</p>
+
+            <div class="notice">
+                If you did not create an account, no further action is required. Please ignore this email.
+            </div>
+
+            <p>If the button above doesn't work, copy and paste this URL into your browser:</p>
+            <p style="word-break: break-all; font-size: 12px; color: #00d4ff;">http://localhost:8000/verify-email?token=Z4iIm2r0EkopuPbI8kGu1irEGiXJWFN259BythdjsR0xeiJnbXjNVJfoDklg</p>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2026 CyberLab Academy. All rights reserved.</p>
+            <p>
+                <a href="http://localhost:8000">Visit our website</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+  
+[2026-07-27 14:08:26] local.ERROR: SQLSTATE[23505]: Unique violation: 7 ERROR:  duplicate key value violates unique constraint "labs_slug_unique"
+DETAIL:  Key (slug)=(sql-injection-lab) already exists. (Connection: pgsql, Host: postgres, Port: 5432, Database: cyberlab, SQL: insert into "labs" ("course_id", "created_at", "description", "difficulty_level", "duration_minutes", "hints", "is_published", "learning_objectives", "slug", "title", "type", "updated_at", "xp_reward") values (1, 2026-07-27 14:08:26, Practice SQL injection attacks against a vulnerable web application. Learn to bypass authentication and extract data from databases., intermediate, 60, Try single quotes to break the query
+Use UNION SELECT to combine results
+Check information_schema tables, 1, Identify SQL injection vulnerabilities
+Exploit SQLi to bypass authentication
+Extract data using UNION-based injection
+Use SQLMap for automated exploitation, sql-injection-lab, SQL Injection Lab, single_machine, 2026-07-27 14:08:26, 200), (1, 2026-07-27 14:08:26, Master Cross-Site Scripting attacks through realistic scenarios. Learn stored, reflected, and DOM-based XSS techniques., intermediate, 45, Try <script>alert(1)</script>
+Check if < and > are filtered
+Use onerror or onload events, 1, Understand stored, reflected, and DOM-based XSS
+Craft XSS payloads
+Bypass WAF and input filters
+Steal cookies and session data, xss-challenge, XSS Challenge, single_machine, 2026-07-27 14:08:26, 150), (2, 2026-07-27 14:08:26, Perform network scanning and enumeration using various tools. Master the art of network discovery., beginner, 90, Start with a ping sweep
+Use -sV for version detection
+Try -A for aggressive scanning, 1, Master Nmap scanning techniques
+Perform service enumeration
+Identify OS and version fingerprints
+Document network topology, network-recon, Network Reconnaissance, multi_machine, 2026-07-27 14:08:26, 250), (4, 2026-07-27 14:08:26, Build your own port scanner using Python sockets. Learn TCP connection handling and multi-threading., beginner, 45, Use socket.connect_ex() for non-blocking checks
+Set a timeout to avoid hanging
+Use threading.Thread for parallel scans, 1, Build a functional port scanner
+Understand TCP three-way handshake
+Implement multi-threaded scanning
+Parse and display scan results, python-port-scanner, Port Scanner in Python, single_machine, 2026-07-27 14:08:26, 100), (1, 2026-07-27 14:08:26, Test your cryptography skills. Decrypt various ciphertexts and understand modern encryption algorithms., expert, 120, Check letter frequency for classical ciphers
+Look for padding patterns in block ciphers
+RSA challenges often involve factorisation, 1, Identify encryption algorithms
+Break classical ciphers
+Understand symmetric vs asymmetric crypto
+Perform frequency analysis, cryptography-challenge, Cryptography Challenge, ctf, 2026-07-27 14:08:26, 500), (2, 2026-07-27 14:08:26, Simulate realistic phishing attacks. Learn to craft convincing phishing emails and understand social engineering techniques., intermediate, 75, Use legitimate-looking domains
+Clone real login pages for realism
+Add urgency in email subject lines, 1, Create phishing email templates
+Set up a phishing landing page
+Bypass email security filters
+Collect and analyze victim data, phishing-simulation, Phishing Simulation, sandbox, 2026-07-27 14:08:26, 300), (3, 2026-07-27 14:08:26, Exploit stack buffer overflows on a vulnerable binary. Learn about memory corruption and shellcode injection., advanced, 90, Use pattern_create to find EIP offset
+Check for bad characters before shellcode
+Use msfvenom to generate payload, 1, Understand stack memory layout
+Identify buffer overflow vulnerabilities
+Craft and inject shellcode
+Bypass DEP and ASLR mitigations, buffer-overflow-lab, Buffer Overflow Lab, single_machine, 2026-07-27 14:08:26, 400)) {"exception":"[object] (Illuminate\\Database\\UniqueConstraintViolationException(code: 23505): SQLSTATE[23505]: Unique violation: 7 ERROR:  duplicate key value violates unique constraint \"labs_slug_unique\"
+DETAIL:  Key (slug)=(sql-injection-lab) already exists. (Connection: pgsql, Host: postgres, Port: 5432, Database: cyberlab, SQL: insert into \"labs\" (\"course_id\", \"created_at\", \"description\", \"difficulty_level\", \"duration_minutes\", \"hints\", \"is_published\", \"learning_objectives\", \"slug\", \"title\", \"type\", \"updated_at\", \"xp_reward\") values (1, 2026-07-27 14:08:26, Practice SQL injection attacks against a vulnerable web application. Learn to bypass authentication and extract data from databases., intermediate, 60, Try single quotes to break the query
+Use UNION SELECT to combine results
+Check information_schema tables, 1, Identify SQL injection vulnerabilities
+Exploit SQLi to bypass authentication
+Extract data using UNION-based injection
+Use SQLMap for automated exploitation, sql-injection-lab, SQL Injection Lab, single_machine, 2026-07-27 14:08:26, 200), (1, 2026-07-27 14:08:26, Master Cross-Site Scripting attacks through realistic scenarios. Learn stored, reflected, and DOM-based XSS techniques., intermediate, 45, Try <script>alert(1)</script>
+Check if < and > are filtered
+Use onerror or onload events, 1, Understand stored, reflected, and DOM-based XSS
+Craft XSS payloads
+Bypass WAF and input filters
+Steal cookies and session data, xss-challenge, XSS Challenge, single_machine, 2026-07-27 14:08:26, 150), (2, 2026-07-27 14:08:26, Perform network scanning and enumeration using various tools. Master the art of network discovery., beginner, 90, Start with a ping sweep
+Use -sV for version detection
+Try -A for aggressive scanning, 1, Master Nmap scanning techniques
+Perform service enumeration
+Identify OS and version fingerprints
+Document network topology, network-recon, Network Reconnaissance, multi_machine, 2026-07-27 14:08:26, 250), (4, 2026-07-27 14:08:26, Build your own port scanner using Python sockets. Learn TCP connection handling and multi-threading., beginner, 45, Use socket.connect_ex() for non-blocking checks
+Set a timeout to avoid hanging
+Use threading.Thread for parallel scans, 1, Build a functional port scanner
+Understand TCP three-way handshake
+Implement multi-threaded scanning
+Parse and display scan results, python-port-scanner, Port Scanner in Python, single_machine, 2026-07-27 14:08:26, 100), (1, 2026-07-27 14:08:26, Test your cryptography skills. Decrypt various ciphertexts and understand modern encryption algorithms., expert, 120, Check letter frequency for classical ciphers
+Look for padding patterns in block ciphers
+RSA challenges often involve factorisation, 1, Identify encryption algorithms
+Break classical ciphers
+Understand symmetric vs asymmetric crypto
+Perform frequency analysis, cryptography-challenge, Cryptography Challenge, ctf, 2026-07-27 14:08:26, 500), (2, 2026-07-27 14:08:26, Simulate realistic phishing attacks. Learn to craft convincing phishing emails and understand social engineering techniques., intermediate, 75, Use legitimate-looking domains
+Clone real login pages for realism
+Add urgency in email subject lines, 1, Create phishing email templates
+Set up a phishing landing page
+Bypass email security filters
+Collect and analyze victim data, phishing-simulation, Phishing Simulation, sandbox, 2026-07-27 14:08:26, 300), (3, 2026-07-27 14:08:26, Exploit stack buffer overflows on a vulnerable binary. Learn about memory corruption and shellcode injection., advanced, 90, Use pattern_create to find EIP offset
+Check for bad characters before shellcode
+Use msfvenom to generate payload, 1, Understand stack memory layout
+Identify buffer overflow vulnerabilities
+Craft and inject shellcode
+Bypass DEP and ASLR mitigations, buffer-overflow-lab, Buffer Overflow Lab, single_machine, 2026-07-27 14:08:26, 400)) at /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php:838)
+[stacktrace]
+#0 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate\\Database\\Connection->runQueryCallback('insert into \"la...', Array, Object(Closure))
+#1 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(573): Illuminate\\Database\\Connection->run('insert into \"la...', Array, Object(Closure))
+#2 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(537): Illuminate\\Database\\Connection->statement('insert into \"la...', Array)
+#3 /var/www/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4121): Illuminate\\Database\\Connection->insert('insert into \"la...', Array)
+#4 /var/www/database/seeders/LabSeeder.php(14): Illuminate\\Database\\Query\\Builder->insert(Array)
+#5 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Database\\Seeders\\LabSeeder->run()
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#7 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#8 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#9 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#10 /var/www/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(184): Illuminate\\Container\\Container->call(Array, Array)
+#11 /var/www/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(193): Illuminate\\Database\\Seeder->Illuminate\\Database\\{closure}()
+#12 /var/www/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(71): Illuminate\\Database\\Seeder->__invoke()
+#13 /var/www/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php(157): Illuminate\\Database\\Console\\Seeds\\SeedCommand->Illuminate\\Database\\Console\\Seeds\\{closure}()
+#14 /var/www/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(70): Illuminate\\Database\\Eloquent\\Model::unguarded(Object(Closure))
+#15 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\\Database\\Console\\Seeds\\SeedCommand->handle()
+#16 /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#17 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#18 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#19 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#20 /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php(211): Illuminate\\Container\\Container->call(Array)
+#21 /var/www/vendor/symfony/console/Command/Command.php(341): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#22 /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#23 /var/www/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#24 /var/www/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\Seeds\\SeedCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#25 /var/www/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#26 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#27 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#28 /var/www/artisan(9): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#29 {main}
+
+[previous exception] [object] (PDOException(code: 23505): SQLSTATE[23505]: Unique violation: 7 ERROR:  duplicate key value violates unique constraint \"labs_slug_unique\"
+DETAIL:  Key (slug)=(sql-injection-lab) already exists. at /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php:584)
+[stacktrace]
+#0 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(584): PDOStatement->execute()
+#1 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(827): Illuminate\\Database\\Connection->Illuminate\\Database\\{closure}('insert into \"la...', Array)
+#2 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate\\Database\\Connection->runQueryCallback('insert into \"la...', Array, Object(Closure))
+#3 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(573): Illuminate\\Database\\Connection->run('insert into \"la...', Array, Object(Closure))
+#4 /var/www/vendor/laravel/framework/src/Illuminate/Database/Connection.php(537): Illuminate\\Database\\Connection->statement('insert into \"la...', Array)
+#5 /var/www/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4121): Illuminate\\Database\\Connection->insert('insert into \"la...', Array)
+#6 /var/www/database/seeders/LabSeeder.php(14): Illuminate\\Database\\Query\\Builder->insert(Array)
+#7 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Database\\Seeders\\LabSeeder->run()
+#8 /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#9 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#10 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#11 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#12 /var/www/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(184): Illuminate\\Container\\Container->call(Array, Array)
+#13 /var/www/vendor/laravel/framework/src/Illuminate/Database/Seeder.php(193): Illuminate\\Database\\Seeder->Illuminate\\Database\\{closure}()
+#14 /var/www/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(71): Illuminate\\Database\\Seeder->__invoke()
+#15 /var/www/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php(157): Illuminate\\Database\\Console\\Seeds\\SeedCommand->Illuminate\\Database\\Console\\Seeds\\{closure}()
+#16 /var/www/vendor/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php(70): Illuminate\\Database\\Eloquent\\Model::unguarded(Object(Closure))
+#17 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\\Database\\Console\\Seeds\\SeedCommand->handle()
+#18 /var/www/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::Illuminate\\Container\\{closure}()
+#19 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#20 /var/www/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#21 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#22 /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php(211): Illuminate\\Container\\Container->call(Array)
+#23 /var/www/vendor/symfony/console/Command/Command.php(341): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#24 /var/www/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#25 /var/www/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#26 /var/www/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Database\\Console\\Seeds\\SeedCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#27 /var/www/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#28 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#29 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#30 /var/www/artisan(9): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#31 {main}
+"} 
+[2026-07-27 16:07:10] local.ERROR: Payze create payment error: cURL error 28: Connection timed out after 10003 milliseconds (see https://curl.se/libcurl/c/libcurl-errors.html) for https://api.payze.io/v1/merchant/payment  

@@ -1,0 +1,165 @@
+version: '3.8'
+
+# CyberLab Academy - Lab Orchestrator
+# Docker Swarm Configuration
+
+services:
+  # Lab Controller
+  lab-controller:
+    image: cyberlab/controller:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.controller
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+    environment:
+      - DATABASE_URL=postgresql://cyberlab:secret@postgres:5432/cyberlab_labs
+      - REDIS_URL=redis://redis:6379
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - lab-data:/var/lib/lab
+    ports:
+      - "8080:8080"
+    networks:
+      - management
+    restart: unless-stopped
+
+  # Resource Manager
+  resource-manager:
+    image: cyberlab/resource-manager:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.resource-manager
+    deploy:
+      replicas: 2
+      placement:
+        constraints:
+          - node.labels.worker == true
+    environment:
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - management
+    restart: unless-stopped
+
+  # Network Manager
+  network-manager:
+    image: cyberlab/network-manager:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.network-manager
+    deploy:
+      replicas: 1
+      privileged: true
+    environment:
+      - REDIS_URL=redis://redis:6379
+    networks:
+      - management
+    restart: unless-stopped
+
+  # Flag Validator
+  flag-validator:
+    image: cyberlab/flag-validator:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.flag-validator
+    deploy:
+      replicas: 2
+    environment:
+      - REDIS_URL=redis://redis:6379
+    networks:
+      - management
+    restart: unless-stopped
+
+  # Monitor
+  monitor:
+    image: cyberlab/monitor:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.monitor
+    deploy:
+      replicas: 1
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql://cyberlab:secret@postgres:5432/cyberlab_labs
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "9090:9090"
+    networks:
+      - management
+    restart: unless-stopped
+
+  # PostgreSQL
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: cyberlab_labs
+      POSTGRES_USER: cyberlab
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - management
+    restart: unless-stopped
+
+  # Redis
+  redis:
+    image: redis:7-alpine
+    command: redis-server --requirepass secret
+    volumes:
+      - redis-data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - management
+    restart: unless-stopped
+
+  # Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    ports:
+      - "9091:9090"
+    networks:
+      - management
+    restart: unless-stopped
+
+  # Grafana
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+    ports:
+      - "3000:3000"
+    networks:
+      - management
+    restart: unless-stopped
+
+volumes:
+  lab-data:
+  postgres-data:
+  redis-data:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  management:
+    driver: overlay
+    attachable: true
+  lab-network:
+    driver: overlay
+    internal: true
+    attachable: true

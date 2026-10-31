@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cyberlab
+  labels:
+    app.kubernetes.io/name: cyberlab
+    app.kubernetes.io/part-of: cyberlab-academy
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: lab-environments
+  labels:
+    app.kubernetes.io/name: lab-environments
+    app.kubernetes.io/part-of: cyberlab-academy
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  labels:
+    app.kubernetes.io/name: monitoring
+    app.kubernetes.io/part-of: cyberlab-academy

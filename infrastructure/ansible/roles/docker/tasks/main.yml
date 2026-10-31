@@ -1,0 +1,55 @@
+---
+# Ansible Role: Docker Configuration
+
+- name: Configure Docker
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Create Docker configuration directory
+      file:
+        path: /etc/docker
+        state: directory
+        mode: '0755'
+
+    - name: Configure Docker daemon
+      template:
+        src: daemon.json.j2
+        dest: /etc/docker/daemon.json
+        mode: '0644'
+      notify: Restart Docker
+
+    - name: Create Docker networks
+      docker_network:
+        name: "{{ item.name }}"
+        driver: "{{ item.driver }}"
+        internal: "{{ item.internal | default(false) }}"
+      loop:
+        - { name: 'lab-network', driver: 'overlay', internal: true }
+        - { name: 'management', driver: 'overlay' }
+
+    - name: Create Docker volumes
+      docker_volume:
+        name: "{{ item }}"
+      loop:
+        - lab-data
+        - postgres-data
+        - redis-data
+
+    - name: Install Docker Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/latest/download/docker-compose-linux-{{ ansible_architecture }}
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Create symlink for docker compose
+      file:
+        src: /usr/local/bin/docker-compose
+        dest: /usr/local/bin/docker-compose-v2
+        state: link
+
+  handlers:
+    - name: Restart Docker
+      systemd:
+        name: docker
+        state: restarted

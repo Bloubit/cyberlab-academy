@@ -1,0 +1,128 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{LAB_ID}}"
+  namespace: lab-environments
+  labels:
+    app: lab-machine
+    lab-id: "{{LAB_ID}}"
+    user-id: "{{USER_ID}}"
+    lab-type: "{{LAB_TYPE}}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      lab-id: "{{LAB_ID}}"
+  template:
+    metadata:
+      labels:
+        lab-id: "{{LAB_ID}}"
+        user-id: "{{USER_ID}}"
+    spec:
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+      containers:
+        - name: lab-machine
+          image: "{{MACHINE_IMAGE}}"
+          ports:
+            - containerPort: 22
+              name: ssh
+            - containerPort: 80
+              name: http
+            - containerPort: 443
+              name: https
+          env:
+            - name: LAB_ID
+              value: "{{LAB_ID}}"
+            - name: USER_ID
+              value: "{{USER_ID}}"
+            - name: FLAG
+              valueFrom:
+                secretKeyRef:
+                  name: "lab-{{LAB_ID}}-flags"
+                  key: flag
+            - name: EXPIRES_AT
+              value: "{{EXPIRES_AT}}"
+          resources:
+            requests:
+              cpu: "{{CPU_REQUEST}}"
+              memory: "{{MEMORY_REQUEST}}"
+            limits:
+              cpu: "{{CPU_LIMIT}}"
+              memory: "{{MEMORY_LIMIT}}"
+          volumeMounts:
+            - name: lab-storage
+              mountPath: /opt/lab
+            - name: flags
+              mountPath: /opt/flags
+              readOnly: true
+          livenessProbe:
+            tcpSocket:
+              port: 22
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 22
+            initialDelaySeconds: 10
+            periodSeconds: 5
+      volumes:
+        - name: lab-storage
+          persistentVolumeClaim:
+            claimName: "lab-{{LAB_ID}}-pvc"
+        - name: flags
+          secret:
+            secretName: "lab-{{LAB_ID}}-flags"
+      nodeSelector:
+        worker: "true"
+      tolerations:
+        - key: "lab"
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{LAB_ID}}"
+  namespace: lab-environments
+  labels:
+    lab-id: "{{LAB_ID}}"
+spec:
+  selector:
+    lab-id: "{{LAB_ID}}"
+  ports:
+    - name: ssh
+      port: 22
+      targetPort: 22
+    - name: http
+      port: 80
+      targetPort: 80
+    - name: https
+      port: 443
+      targetPort: 443
+  type: ClusterIP
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: "lab-{{LAB_ID}}-pvc"
+  namespace: lab-environments
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: fast-ssd
+  resources:
+    requests:
+      storage: "{{STORAGE_SIZE}}"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "lab-{{LAB_ID}}-flags"
+  namespace: lab-environments
+type: Opaque
+data:
+  flag: {{FLAG_BASE64}}
+  root-password: {{ROOT_PASSWORD_BASE64}}

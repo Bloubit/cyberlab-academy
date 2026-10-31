@@ -1,0 +1,70 @@
+---
+# Ansible Playbook: Initialize CyberLab Infrastructure
+
+- name: Initialize CyberLab Infrastructure
+  hosts: all
+  become: yes
+  vars_files:
+    - vars/defaults.yml
+
+  tasks:
+    - name: Update system packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install required packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+          - python3-pip
+          - docker.io
+          - docker-compose
+          - jq
+          - htop
+          - iotop
+        state: present
+
+    - name: Start and enable Docker
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add user to docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+
+    - name: Configure Docker daemon
+      template:
+        src: templates/daemon.json.j2
+        dest: /etc/docker/daemon.json
+      notify: Restart Docker
+
+    - name: Install Docker Swarm
+      command: docker swarm init
+      when: swarm_status.rc != 0
+
+    - name: Get Docker Swarm status
+      command: docker info --format '{{.Swarm.LocalNodeState}}'
+      register: swarm_status
+      changed_when: false
+
+    - name: Join Docker Swarm
+      command: >
+        docker swarm join
+        --token {{ swarm_token }}
+        {{ swarm_manager_ip }}:2377
+      when: swarm_status.stdout == 'inactive' and inventory_hostname != swarm_manager
+
+  handlers:
+    - name: Restart Docker
+      systemd:
+        name: docker
+        state: restarted

@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  # Application
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: cyberlab-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - cyberlab-network
+    depends_on:
+      - postgres
+      - redis
+
+  # Nginx
+  nginx:
+    image: nginx:alpine
+    container_name: cyberlab-nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - cyberlab-network
+    depends_on:
+      - app
+
+  # PostgreSQL
+  postgres:
+    image: postgres:16-alpine
+    container_name: cyberlab-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-cyberlab_academy}
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cyberlab-network
+
+  # Redis
+  redis:
+    image: redis:7-alpine
+    container_name: cyberlab-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - cyberlab-network
+
+  # Queue Worker
+  queue:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: cyberlab-queue
+    restart: unless-stopped
+    working_dir: /var/www
+    command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
+    volumes:
+      - .:/var/www
+    networks:
+      - cyberlab-network
+    depends_on:
+      - app
+      - redis
+
+  # Scheduler
+  scheduler:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: cyberlab-scheduler
+    restart: unless-stopped
+    working_dir: /var/www
+    command: >
+      sh -c "while true; do php artisan schedule:run --verbose --no-interaction & sleep 60; done"
+    volumes:
+      - .:/var/www
+    networks:
+      - cyberlab-network
+    depends_on:
+      - app
+
+networks:
+  cyberlab-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
